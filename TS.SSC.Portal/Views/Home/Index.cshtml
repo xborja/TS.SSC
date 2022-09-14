@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewBag.EstadoProceso == "1")
+        {
+            <div id="divMensaje" class="alert alert-success alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Atencion!</strong> @ViewBag.MensajeProceso
+            </div>
+            <div hidden="hidden" class="form-horizontal"><label id="MensajeProceso" style="color : red">@ViewBag.MensajeProceso/label></div>
+        }
+        @if (ViewBag.EstadoProceso == "-1")
+        {
+            <div id="divMensaje" class="alert alert-danger alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Atencion!</strong> @ViewBag.MensajeProceso
+            </div>
+            <div hidden="hidden" class="form-horizontal"><label id="MensajeProceso" style="color : red">@ViewBag.MensajeProceso</label></div>
+        }
+    </div>
+</div>
+
+<div class="jumbotron">
+    <h1>Parroquia Cristo del Consuelo</h1>
+    <p class="lead">Sistema de Registro de Sacramentos</p>
+
+</div>
+@section Scripts {
+    <link href="~/Content/BarStyle.css" rel="stylesheet" />
+    <script src="~/Scripts/barra-carga.js"></script>
+    @**<%--mensaje de bienvenida--%>**@
+    <link href="~/Content/EstilosMsmBienvenida.css" rel="stylesheet" />
+    <script src="~/Scripts/MsmBienvenida.js"></script>
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#divMensaje').delay(5000).fadeOut();
+
+        });
+    </script>*@
+
+}

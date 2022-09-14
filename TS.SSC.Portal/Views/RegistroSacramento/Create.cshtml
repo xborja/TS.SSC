@@ -1,0 +1,229 @@
+﻿@model TS.SSC.Portal.ViewModels.RegistroSacramentoVM
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Header{
+    <h1>     Nuevo registro de sacramento  <small>CDC</small>    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Registro</a></li>
+        <li class="active">Nuevo</li>
+    </ol>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    if (Model.MensajeProceso != String.Empty && Model.MensajeProceso != null)
+    {
+        <div id="divMensaje" class="alert alert-warning alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Atencion!</strong> @Model.MensajeProceso
+        </div>
+        <div hidden="hidden" class="form-horizontal"><label id="MensajeProceso" style="color : red">@Model.MensajeProceso</label></div>
+    }
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Datos Persona</h3>
+                    <input type="hidden" id="idParroquia"name="idParroquia" value="@Model.idParroquia"/>
+                    @*@Html.HiddenFor(model => model.PersonaM.Nombre);*@
+                </div>
+                <div class="form-horizontal">
+                    <div class=" box-body">
+                        @*<div class="form-group">
+                            @Html.LabelFor(model => model.PersonaM.id, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.PersonaM.id, new { @class = "form-control", @readonly = "readonly", @placeholder = "Id" })
+                                @Html.ValidationMessageFor(model => model.PersonaM.id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.idPersona, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(model => model.idPersona, new SelectList(Model.ListPersonas.Items.OrderBy(m => m.Nombre), "id", "Nombre"), "Seleccione", htmlAttributes: new { @class = "form-control select2", @onchange = "fncargarpersona(this)" })
+                                @Html.ValidationMessageFor(model => model.idPersona, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div id="personainfo">
+                            <div class="form-group" id="divnombre" hidden="hidden">
+                                @Html.LabelFor(model => model.PersonaM.Nombre, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.PersonaM.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.Nombre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PersonaM.Cedula, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.PersonaM.Cedula, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.Cedula, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PersonaM.LugarNacimiento, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.PersonaM.LugarNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.LugarNacimiento, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PersonaM.FechaNacimiento, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.PersonaM.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.FechaNacimiento, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PersonaM.LugarBautismo, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.PersonaM.LugarBautismo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.LugarBautismo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PersonaM.FechaBautismo, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.PersonaM.FechaBautismo, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.FechaBautismo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PersonaM.NombrePadre, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.PersonaM.NombrePadre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.NombrePadre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PersonaM.NombreMadre, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.PersonaM.NombreMadre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PersonaM.NombreMadre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Datos Sacramento</h3>
+                </div>
+                <div class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.idSacramento, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(model => model.idSacramento, new SelectList(Model.ListSacramentos.Items.OrderBy(m => m.nombreSacramento), "id", "nombreSacramento"), "Seleccione", htmlAttributes: new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(model => model.idSacramento, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.fechaRegistro, htmlAttributes: new { @class = "col-sm-3 control-label " })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.fechaRegistro, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.fechaRegistro, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.libro, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.libro, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.libro, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.folio, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.folio, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.folio, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.partida, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.partida, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.partida, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.nombrePadrino, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.nombrePadrino, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.nombrePadrino, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.nombreMadrina, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.nombreMadrina, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.nombreMadrina, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.nombreMinistro, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.nombreMinistro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.nombreMinistro, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.nombreDaFe, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.nombreDaFe, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.nombreDaFe, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="box">
+        <div class=" box-footer">
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" value="Grabar" class="btn btn-success btn-sm" />
+                    @Html.ActionLink("Regresar", "Index", new { area = "" }, new { @class = "btn btn-default btn-sm" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="modal-default-loading" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>*@
+                    <h5 class="modal-title" style="margin: 0 auto;" id="exampleModalLongTitle">Por favor espere</h5>
+                </div>
+                <div class="modal-body" style="margin: 0 auto;">
+                    <img src="~/Content/ajax-loader.gif" style="width: 100px; height: 100px;  display:block; margin:auto;" />
+
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+}
+
+@section Scripts {
+    <script src="~/Content/select2/dist/js/select2.full.js"></script>
+    <link href="~/Content/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="~/ViewScripts/registrosacramento.js"></script>
+}
+

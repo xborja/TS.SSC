@@ -1,0 +1,6 @@
+﻿/*
+    mostrar siempre el datepicker
+*/
+.datepicker {
+    z-index: 1040 !important;
+}

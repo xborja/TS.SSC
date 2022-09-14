@@ -1,0 +1,69 @@
+﻿@using TS.SSC.Portal.Models
+@model LoginViewModel
+
+@{
+    //ViewBag.Title = "Inicio de Sesión " + @System.Web.Configuration.WebConfigurationManager.AppSettings["NombreEmpresa"];
+    ViewBag.Title = "Inicio de Sesión";
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+
+<!-- begin::Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>Cristo del Consuelo | Login Page </title>
+    <link rel="shortcut icon" href="~/Content/img/cristo.jpg" />
+    
+    <link href="~/Content/css/stylelogin.css" rel="stylesheet" />
+    <meta name="description" content="Login page example">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--begin::Fonts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    @*<script>
+            WebFont.load({
+                google: {
+                    "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
+                },
+                active: function () {
+                    sessionStorage.fonts = true;
+                }
+            });
+        </script>*@
+
+    <!--begin::Page Custom Styles(used by this page) -->
+    @*<link href="../assets/app/custom/login/login-v3.default.css" rel="stylesheet" type="text/css" />*@
+
+
+</head>
+
+<!-- end::Head -->
+<!-- begin::Body -->
+<body>
+    <div class="login-box">
+        <img src="~/Content/img/cristo.jpg" class="avatar" />
+        <h1 class="text-center login-title">Grupo - @System.Web.Configuration.WebConfigurationManager.AppSettings["NombreEmpresa"]</h1>
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <form>
+            <p>Username</p>
+            <input type="text" class="form-control" name="username" placeholder="Usuario">
+            @*@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })*@
+            <p>Password</p>
+            <input type="password" class="form-control" id="Password" name="Password" placeholder="Contraseña">
+            <input type="submit" name="submit" value="Iniciar Sesión">
+            
+            @*<a href="#">Forget Password</a>*@
+        </form>
+        }
+
+        </div>
+
+</body>
+
+<!-- end::Body -->
+</html>

@@ -1,0 +1,85 @@
+﻿@model TS.SSC.Portal.ViewModels.UsuarioVM
+
+@{
+    ViewBag.Title = "Edicion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Header{
+<h1>     Usuarios  <small>CDC</small>    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Usuarios</a></li>
+        <li class="active">Edición</li>
+    </ol>
+}
+
+<div class="box box-warning">
+    <div class="box-header with-border">
+        <h4 class="box-title">Edición de Usuario</h4>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class=" box-body">
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.id, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+                    @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nombreUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nombreUsuario, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nombreUsuario, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.idEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.idEmpleado, new SelectList(Model.EmpleadoList.items.OrderBy(m => m.lastName), "empID", "lastName"), "Elija Empleado", htmlAttributes: new { @class = "form-control col-xs-2" })
+                    @Html.ValidationMessageFor(model => model.idEmpleado, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        </div>
+        <div class=" box-footer">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Grabar" class="btn btn-success btn-sm" />
+                    @Html.ActionLink("Regresar", "Index", new { area = "" }, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    }
+
+</div>
+

@@ -1,0 +1,33 @@
+﻿insert into Tbl_RegistroSacramento
+(
+idParroquia,
+idPersona,
+idSacramento,
+fechaRegistro,
+libro,
+folio,
+partida,
+nombrePadrino,
+nombreMadrina,
+nombreMinistro,
+nombreDaFe,
+fechaCrea,
+userCrea
+)
+Values
+(
+@idParroquia,
+@idPersona,
+@idSacramento,
+@fechaRegistro,
+@libro,
+@folio,
+@partida,
+@nombrePadrino,
+@nombreMadrina,
+@nombreMinistro,
+@nombreDaFe,
+getdate(),
+@userCrea
+);
+SELECT SCOPE_IDENTITY();

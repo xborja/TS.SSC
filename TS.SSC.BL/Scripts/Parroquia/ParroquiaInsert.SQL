@@ -1,0 +1,20 @@
+﻿insert into  Tbl_Parroquia
+(
+nombre,
+lugar,
+direccion,
+telefono,
+parroco,
+fechaCrea,
+userCrea
+)
+Values
+(
+@nombre,
+@lugar,
+@direccion,
+@telefono,
+@parroco,
+getdate(),
+@userCrea
+)

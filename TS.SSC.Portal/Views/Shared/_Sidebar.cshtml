@@ -1,0 +1,85 @@
+﻿@using WebHelpers.Mvc5
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @* BEGIN Search *@
+        <form action="#" method="get" class="sidebar-form">
+            @*<div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>*@
+        </form>
+        @* END Search *@
+        @* BEGIN Menu *@
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">Menu</li>
+
+        @if (Session["GlbUsrInst2774378"] != null)
+        {
+            var usuario = (TS.SSC.Entity.Usuario)Session["GlbUsrInst2774378"];
+            if (usuario.tipoUsuario == "Admin")
+            { }
+            string itemabiertoS = string.Empty;
+
+            switch (Request.Path)
+            {
+                case "/Usuario/Index":
+                case "/Sacramento/Index":
+                case "/Usuario/Create":
+                case "/Sacramento/Create":
+                case "/Usuario/Edit":
+                case "/Sacramento/Edit":
+                case "/Persona/Index":
+                case "/Persona/Create":
+                case "/Persona/Edit":
+                case "/Parroquia/DatosParroquia":
+
+                    itemabiertoS = "active menu-open";
+                    break;
+            }
+            <li class="treeview @itemabiertoS">
+                    <a href="#">
+                        <i class="fa fa-cogs"></i> <span>Maestros</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="@(Request.Path.Equals("/Usuario/Index") ? "active" : "")"><a href="~/Usuario/Index"><i class="fa fa-user"> </i>Usuarios</a></li>
+                        <li class="@(Request.Path.Equals("/Persona/Index") ? "active" : "")"> <a href="~/Persona/Index"><i class="fa fa-users"></i>Personas</a></li>
+                        <li class="@(Request.Path.Equals("/Parroquia/DatosParroquia") ? "active" : "")"> <a href="~/Parroquia/DatosParroquia"><i class="fa fa-building"></i>Parroquia</a></li>
+                        <li class="@(Request.Path.Equals("/Sacramento/Index") ? "active" : "")"><a href="~/Sacramento/Index"><i class="fa fa-folder-open-o"> </i>Sacramentos</a></li>
+                    </ul>
+                </li>
+
+            itemabiertoS = string.Empty;
+            switch (Request.Path)
+            {
+                case "/RegistroSacramento/Index":
+                case "/RegistroSacramento/Create":
+                case "/RegistroSacramento/Edit":
+
+                    itemabiertoS = "active menu-open";
+                    break;
+            }
+                <li class="treeview  @itemabiertoS">
+                    <a href="#">
+                        <i class="fa fa-bank"></i> <span>Registro Sacramentos</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="@(Request.Path.Equals("/RegistroSacramento/Index") ? "active" : "")"><a href="~/RegistroSacramento/Index"><i class="fa fa-book "></i>Registro Sacramentos</a></li>
+                    </ul>
+                </li>
+
+
+        }
+    </ul>
+        @* END Menu *@
+    </section>
+</aside>

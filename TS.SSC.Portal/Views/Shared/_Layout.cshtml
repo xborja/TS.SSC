@@ -1,0 +1,68 @@
+﻿@using System.Web.Optimization
+@using WebHelpers.Mvc5.Enum
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="~/Content/img/cristo.jpg" type="image/x-icon" />
+    <title>@ViewBag.Title - @System.Web.Configuration.WebConfigurationManager.AppSettings["NombreEmpresa"]</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @*<title>@ViewBag.Title - Brigmany</title>*@
+    @Styles.Render("~/Bundles/css")
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini" style="height:auto; min-height:100%" id="bodyLayout"><div id="barra"></div>
+    <div class="wrapper">
+        @Html.Partial("_Header")
+        @Html.Partial("_Sidebar")
+        <!--Content wrapper contains content page-->
+        <div class="content-wrapper">
+            <section class="content-header">
+                @RenderSection("Header", required: false)
+            </section>
+
+            <section class="content">
+
+                @RenderBody()
+            </section>
+
+        </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.1.0
+            </div>
+            <strong>Copyright © @DateTime.Now.Year <a href="https://www.aplusarq.com/cristo-del-consuelo">Parroquia Cristo del consuelo</a>.</strong> All rights
+            reserved.
+        </footer>
+        <div class="modal fade" id="process-box" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"></div>
+                    <div class="modal-body">
+                        Procesando......
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/Content wrapper-->
+        @*@Html.Partial("_ControlSidebar")*@
+    </div>
+
+    @*<script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
+        <script src="@EnumHandler.HandlerUrl"></script>*@
+
+    @Scripts.Render("~/Bundles/js")
+
+    @*@RenderSection("ViewSpecificJavascript", required: fal)*@
+    @RenderSection("Scripts", required: false)
+    @RenderSection("Styles", required: false)
+
+</body>
+</html>

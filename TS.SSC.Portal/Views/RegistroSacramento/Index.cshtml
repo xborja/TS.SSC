@@ -1,0 +1,136 @@
+﻿@model TS.SSC.Portal.ViewModels.RegistroSacramentoLVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Header{
+    <h1>     Sacramentos  <small>CDC</small>    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Registro</a></li>
+        <li class="active">Lista</li>
+    </ol>
+
+    <style>
+        /*estilos para la tabla*/
+        table th {
+            background-color: #3c8dbc;
+            color: white;
+        }
+    </style>
+}
+@using (Html.BeginForm("Index", "RegistroSacramento", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <!-- Content Header (Page header) -->
+
+    if (ViewBag.Mensaje != String.Empty && ViewBag.Mensaje != null)
+    {
+        <div id="divMensaje" class="alert alert-warning alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Atencion!</strong> @ViewBag.Mensaje
+        </div>
+        <div hidden="hidden" class="form-horizontal"><label id="MensajeProceso" style="color : red">@ViewBag.Mensaje</label></div>
+    }
+
+
+
+
+    <div class="box">
+        <div class="box-header with-border">
+
+            <h3 class="box-title">Registros de Sacramentos</h3>
+            <div class="box-tools">
+                <div class="input-group" style="width:150%">
+                    @*Búsqueda : <input type="text" id="myInput" onkeyup="buscaEnTabla()" placeholder="Búsqueda.." title="Digite un dato"> &nbsp*@
+                    @Html.ActionLink(" Nuevo", "Create", "RegistroSacramento", new { area = "" }, new { @class = "btn btn-warning fa fa-plus-square", id = "btnCreate" })&nbsp
+                    @*@Html.ActionLink("Submit", "", null, new { @id = "submit", @class = "btn btn-primary fa fa-cloud-upload" })*@
+
+                </div>
+                @*btnSubirDatos  btnExportar*@
+
+            </div>
+        </div>
+        <br />
+        <div class="box-body table-responsive">
+            @using (Html.BeginForm())
+            {
+
+
+                if (Model.Items.Count > 0)
+                {
+                    <table class="display" style="width:100%" id="tblsacramentos">
+                        <thead>
+                            <tr>
+                                <th class="hidden">@Html.DisplayNameFor(model => model.Items.FirstOrDefault().id)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Sacramento)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Persona)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().fechaRegistro)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().libro)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().folio)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().partida)</th>
+
+                                <th></th>
+                                @*<th></th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td class="hidden">@Html.DisplayFor(modelItem => item.id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Sacramento)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Persona)</td>
+                                    <td>@item.fechaRegistro.ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(modelItem => item.libro)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.folio)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.partida)</td>
+                                    <td>
+                                        @*<span style="overflow: visible; position: relative; width: 110px;">*@
+                                        <div class="row">
+                                            <a href="/RegistroSacramento/Edit/@item.id" title="Editar registro" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa fa-edit"></i> </a>
+                                        </div>
+
+
+                                        @*@Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs fa fa-pencil", title = "Editar Empleado" })*@
+
+                                    </td>
+                                </tr>
+                                @*<td><a class="btn btn-app"> <i class="fa fa-edit"></i> Edit</a></td>*@
+                                @*<td>@Html.ActionLink("Activar/Desactivar", "ChangeEstado", new { id = item.Id })</td>*@
+                                @*<a onclick="return confirm('Esta seguro de eliminar empleado?')" href="/Empleado/Delete/@item.Id" title="Eliminar Empleado" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa  fa-trash-o"></i> </a>*@
+                            }
+                        </tbody>
+                    </table>
+                }
+
+
+                <div class=" box-footer">
+                    <div class="form-group">
+                        <div class="col-md-12" style="text-align: center;">
+                            <div class="btn-group">
+                                @*@Html.ActionLink("Nuevo", "Create", new { area = "" }, new { @class = "btn btn-default" })*@
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+    </div>
+
+
+}
+
+
+@section Scripts{
+    <script>
+
+    </script>
+    <script src="~/Scripts/utils.js"></script>
+    <script src="~/ViewScripts/registrosacramento.js"></script>
+}
+

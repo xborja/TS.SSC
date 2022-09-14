@@ -1,0 +1,142 @@
+﻿@model TS.SSC.Portal.ViewModels.UsuarioLVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Header{
+    <h1>     Usuarios  <small>CDC</small>    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Usuarios</a></li>
+        <li class="active">Lista</li>
+    </ol>
+}
+
+@if (Model.EstadoProceso == 1)
+{
+    <div id="divMensaje" class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i>Operación Exitosa</h4>
+        @Model.MensajeProceso
+    </div>
+}
+
+@if (Model.EstadoProceso == -1)
+{
+    <div id="divMensaje" class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Operación no realizada!</h4>
+        @Model.MensajeProceso
+    </div>
+}
+
+
+
+
+<div class="box">
+    <div class="box-header with-border">
+
+        <h3 class="box-title">Listado de Usuarios</h3>
+        <div class="box-tools">
+            <div class="input-group" style="width:150%">
+                Búsqueda : <input type="text" id="myInput" onkeyup="buscaEnTabla()" placeholder="Búsqueda.." title="Digite un dato"> &nbsp
+                @Html.ActionLink("Nuevo", "Create", "Usuario", new { area = "" }, new { @class = "btn btn-warning fa fa-plus-square" })
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="box-body table-responsive no-padding">
+        @using (Html.BeginForm())
+        {
+
+
+            if (Model.Items.Count > 0)
+            {
+                <table class="table" id="tbluser">
+                    <tr>
+                        <th class="hidden"> @Html.DisplayNameFor(model => model.Items.FirstOrDefault().id)                </th>
+                        <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().nombreUsuario)</th>
+                        <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().userName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().estado)</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td class="hidden">
+                                @Html.DisplayFor(modelItem => item.id)
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.nombreUsuario)</td>
+                            <td>@Html.DisplayFor(modelItem => item.userName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EstadoReg)</td>
+                            <td>@Html.ActionLink("Modificar", "Edit", new { id = item.id })</td>
+                            <td>@Html.ActionLink("Activar/Desactivar", "ChangeEstado", new { id = item.id })</td>
+                        </tr>
+                    }
+
+                </table>
+            }
+
+
+            <div class=" box-footer">
+                <div class="form-group">
+                    <div class="col-md-12" style="text-align: center;">
+                        <div class="btn-group">
+                            @*@Html.ActionLink("Nuevo", "Create", new { area = "" }, new { @class = "btn btn-default" })*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $('#divMensaje').delay(4000).fadeOut();
+
+
+        function buscaEnTabla() {
+            var input, filter, table, tr, tds, td, i;
+            var textfound = false;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tbluser");
+            tds = table.rows[0].cells.length;
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                textfound = false;
+                for (j = 1; j < tds - 1; j++) {
+                    td = tr[i].getElementsByTagName("td")[j];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            textfound = true;
+                            break;
+                        }
+                    }
+                }
+                if (textfound == true) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
+
+ 
+}

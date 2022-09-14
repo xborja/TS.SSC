@@ -1,0 +1,123 @@
+﻿@model TS.SSC.Portal.ViewModels.PersonaLVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Header{
+    <h1>     Personas  <small>CDC</small>    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Personas</a></li>
+        <li class="active">Lista</li>
+    </ol>
+}
+
+@using (Html.BeginForm("Index", "Persona", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+        if (ViewBag.Mensaje != String.Empty && ViewBag.Mensaje != null)
+        {
+            <div id="divMensaje" class="alert alert-warning alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Atencion!</strong> @ViewBag.Mensaje
+            </div>
+            <div hidden="hidden" class="form-horizontal"><label id="MensajeProceso" style="color : red">@ViewBag.Mensaje</label></div>
+        }
+
+    
+
+
+    
+        <div class="box">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Listado de Personas</h3>
+                <div class="box-tools">
+                    <div class="input-group" style="width:150%">
+                        @*Búsqueda : <input type="text" id="myInput" onkeyup="buscaEnTabla()" placeholder="Búsqueda.." title="Digite un dato"> &nbsp*@
+                        @Html.ActionLink(" Nuevo", "Create", "Persona", new { area = "" }, new { @class = "btn btn-warning fa fa-plus-square", id = "btnCreate" })&nbsp
+                        @*@Html.ActionLink("Submit", "", null, new { @id = "submit", @class = "btn btn-primary fa fa-cloud-upload" })*@
+
+                    </div>
+                    @*btnSubirDatos  btnExportar*@
+
+                </div>
+            </div>
+            <br />
+            <div class="box-body table-responsive">
+                @using (Html.BeginForm())
+                {
+
+
+                    if (Model.Items.Count > 0)
+                    {
+                        <table class="display" style="width:100%" id="tblpersona">
+                            <thead>
+                                <tr>
+                                    <th class="hidden">@Html.DisplayNameFor(model => model.Items.FirstOrDefault().id)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Cedula)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Nombre)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().FechaNacimiento)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().LugarNacimiento)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().LugarBautismo)</th>
+                                    <th></th>
+                                    @*<th></th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    <tr>
+                                        <td class="hidden">@Html.DisplayFor(modelItem => item.id)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Cedula)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                        <td>@item.FechaNacimiento.ToString("dd/MM/yyyy")</td>
+                                        <td>@Html.DisplayFor(modelItem => item.LugarNacimiento)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.LugarBautismo)</td>
+                                        <td>
+                                            @*<span style="overflow: visible; position: relative; width: 110px;">*@
+                                            <div class="row">
+                                                <a href="/Persona/Edit/@item.id" title="Editar Persona" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa fa-edit"></i> </a>
+                                            </div>
+
+
+                                            @*@Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs fa fa-pencil", title = "Editar Empleado" })*@
+
+                                        </td>
+                                    </tr>
+                                    @*<td><a class="btn btn-app"> <i class="fa fa-edit"></i> Edit</a></td>*@
+                                    @*<td>@Html.ActionLink("Activar/Desactivar", "ChangeEstado", new { id = item.Id })</td>*@
+                                    @*<a onclick="return confirm('Esta seguro de eliminar empleado?')" href="/Empleado/Delete/@item.Id" title="Eliminar Empleado" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa  fa-trash-o"></i> </a>*@
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+
+                    <div class=" box-footer">
+                        <div class="form-group">
+                            <div class="col-md-12" style="text-align: center;">
+                                <div class="btn-group">
+                                    @*@Html.ActionLink("Nuevo", "Create", new { area = "" }, new { @class = "btn btn-default" })*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+
+    
+}
+<link href="~/Content/DataTables/DataTables-1.10.18/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
+<script src="~/Content/js/plugins/moment/moment.min.js"></script>
+<script src="~/Content/DataTables/datatables.min.js"></script>
+<script src="~/Scripts/utils.js"></script>
+<script src="~/ViewScripts/persona.js"></script>
+

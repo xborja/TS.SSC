@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.Core.DAO", "TS.Core.DAO\TS.Core.DAO.csproj", "{19B2C80D-A798-4D07-AC27-7E22279D1474}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.SSC.Entity", "TS.SSC.Entity\TS.SSC.Entity.csproj", "{69184A00-F348-4C33-9B8D-B99BC794127B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.SSC.BL", "TS.SSC.BL\TS.SSC.BL.csproj", "{2C11AA14-8027-4364-A34B-A79362381346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.SSC.Portal", "TS.SSC.Portal\TS.SSC.Portal.csproj", "{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.SSC.Windows", "TS.SSC.Windows\TS.SSC.Windows.csproj", "{A39E4ACA-AF7B-4352-9CC7-3871270CFE97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 Core", "1 Core", "{C87DA7F2-6E50-40B9-8262-9F1C3AFFC0C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Aplicacion", "2 Aplicacion", "{C6F99AD7-BBCE-44FE-A34F-4FA0C57D70B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Presentacion", "3 Presentacion", "{22CD3713-85F2-45F4-B113-E5C3EDFAFE8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 Entidades", "1 Entidades", "{1081C48D-4E36-4E89-9072-60DC96BAAB4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 App", "2 App", "{FAE80230-B4B9-4B5C-9BFF-0F442A638793}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ReleaseTEST|Any CPU = ReleaseTEST|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19B2C80D-A798-4D07-AC27-7E22279D1474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B2C80D-A798-4D07-AC27-7E22279D1474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B2C80D-A798-4D07-AC27-7E22279D1474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B2C80D-A798-4D07-AC27-7E22279D1474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19B2C80D-A798-4D07-AC27-7E22279D1474}.ReleaseTEST|Any CPU.ActiveCfg = ReleaseTEST|Any CPU
+		{19B2C80D-A798-4D07-AC27-7E22279D1474}.ReleaseTEST|Any CPU.Build.0 = ReleaseTEST|Any CPU
+		{69184A00-F348-4C33-9B8D-B99BC794127B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69184A00-F348-4C33-9B8D-B99BC794127B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69184A00-F348-4C33-9B8D-B99BC794127B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69184A00-F348-4C33-9B8D-B99BC794127B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69184A00-F348-4C33-9B8D-B99BC794127B}.ReleaseTEST|Any CPU.ActiveCfg = ReleaseTEST|Any CPU
+		{69184A00-F348-4C33-9B8D-B99BC794127B}.ReleaseTEST|Any CPU.Build.0 = ReleaseTEST|Any CPU
+		{2C11AA14-8027-4364-A34B-A79362381346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C11AA14-8027-4364-A34B-A79362381346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C11AA14-8027-4364-A34B-A79362381346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C11AA14-8027-4364-A34B-A79362381346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C11AA14-8027-4364-A34B-A79362381346}.ReleaseTEST|Any CPU.ActiveCfg = Release|Any CPU
+		{2C11AA14-8027-4364-A34B-A79362381346}.ReleaseTEST|Any CPU.Build.0 = Release|Any CPU
+		{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD}.ReleaseTEST|Any CPU.ActiveCfg = ReleaseTEST|Any CPU
+		{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD}.ReleaseTEST|Any CPU.Build.0 = ReleaseTEST|Any CPU
+		{A39E4ACA-AF7B-4352-9CC7-3871270CFE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A39E4ACA-AF7B-4352-9CC7-3871270CFE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A39E4ACA-AF7B-4352-9CC7-3871270CFE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A39E4ACA-AF7B-4352-9CC7-3871270CFE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A39E4ACA-AF7B-4352-9CC7-3871270CFE97}.ReleaseTEST|Any CPU.ActiveCfg = Release|Any CPU
+		{A39E4ACA-AF7B-4352-9CC7-3871270CFE97}.ReleaseTEST|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19B2C80D-A798-4D07-AC27-7E22279D1474} = {C87DA7F2-6E50-40B9-8262-9F1C3AFFC0C7}
+		{69184A00-F348-4C33-9B8D-B99BC794127B} = {1081C48D-4E36-4E89-9072-60DC96BAAB4F}
+		{2C11AA14-8027-4364-A34B-A79362381346} = {FAE80230-B4B9-4B5C-9BFF-0F442A638793}
+		{C696AB75-E7D2-4DFB-9FB5-CF490CC9DFDD} = {22CD3713-85F2-45F4-B113-E5C3EDFAFE8B}
+		{A39E4ACA-AF7B-4352-9CC7-3871270CFE97} = {22CD3713-85F2-45F4-B113-E5C3EDFAFE8B}
+		{1081C48D-4E36-4E89-9072-60DC96BAAB4F} = {C6F99AD7-BBCE-44FE-A34F-4FA0C57D70B3}
+		{FAE80230-B4B9-4B5C-9BFF-0F442A638793} = {C6F99AD7-BBCE-44FE-A34F-4FA0C57D70B3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {971FE457-0FEF-4793-9A98-C1C1500545C1}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://team-softec.visualstudio.com/
+		SccProjectUniqueName0 = TS.Core.DAO\\TS.Core.DAO.csproj
+		SccProjectTopLevelParentUniqueName0 = TS.SSC.sln
+		SccProjectName0 = TS.Core.DAO
+		SccAuxPath0 = https://team-softec.visualstudio.com
+		SccLocalPath0 = TS.Core.DAO
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = TS.SSC.Entity\\TS.SSC.Entity.csproj
+		SccProjectTopLevelParentUniqueName1 = TS.SSC.sln
+		SccProjectName1 = TS.SSC.Entity
+		SccAuxPath1 = https://team-softec.visualstudio.com
+		SccLocalPath1 = TS.SSC.Entity
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = TS.SSC.BL\\TS.SSC.BL.csproj
+		SccProjectTopLevelParentUniqueName2 = TS.SSC.sln
+		SccProjectName2 = TS.SSC.BL
+		SccAuxPath2 = https://team-softec.visualstudio.com
+		SccLocalPath2 = TS.SSC.BL
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = TS.SSC.Portal\\TS.SSC.Portal.csproj
+		SccProjectTopLevelParentUniqueName3 = TS.SSC.sln
+		SccProjectName3 = TS.SSC.Portal
+		SccAuxPath3 = https://team-softec.visualstudio.com
+		SccLocalPath3 = TS.SSC.Portal
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

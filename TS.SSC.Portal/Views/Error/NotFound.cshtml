@@ -1,0 +1,19 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = "Not Found";
+}
+
+<div class="error-page">
+    <h2 class="headline text-red">404</h2>
+
+    <div class="error-content">
+        <h3><i class="fa fa-warning text-red"></i> No se encontró la página</h3>
+
+        <p>
+            La pagina que esta buscando no ha sido encontrada. Por favor intente nuevamente.<br>
+            Si el error persiste, contacte al soporte técnico.
+        </p>
+        <p>el mensaje es el siguiente: @Model.Exception.Message</p>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-default" role="button">Home</a>
+    </div>
+</div>

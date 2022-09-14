@@ -1,0 +1,93 @@
+﻿@model TS.SSC.Portal.ViewModels.SacramentoVM
+@{
+    ViewBag.Title = "Edicion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Header{
+    <h1>     Sacramentos  <small>CDC</small>    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Sacramentos</a></li>
+        <li class="active">Edición</li>
+    </ol>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <!-- Content Header (Page header) -->
+
+    if (Model.MensajeProceso != String.Empty && Model.MensajeProceso != null)
+    {
+        <div id="divMensaje" class="alert alert-warning alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Atencion!</strong> @Model.MensajeProceso
+        </div>
+        <div hidden="hidden" class="form-horizontal"><label id="MensajeProceso" style="color : red">@Model.MensajeProceso</label></div>
+    }
+
+
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Editar Sacramento</h3>
+            </div>
+            <div class=" box-body">
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+
+                                    @Html.TextBoxFor(model => model.id, new { @class = "form-control", @disabled = true })
+                                    @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.nombreSacramento, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+
+                                    @Html.EditorFor(model => model.nombreSacramento, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.nombreSacramento, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+
+                                    @Html.DropDownListFor(model => model.estadoT, new SelectList(Model.listestados.OrderBy(m => m.Texto), "Valor", "Texto"), "Seleccione", htmlAttributes: new { @class = "form-control col-xs-2" })
+                                    @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class=" box-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Grabar" class="btn btn-success btn-sm" />
+                        @Html.ActionLink("Regresar", "Index", new { area = "" }, new { @class = "btn btn-default btn-sm" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+}
+
+@section Scripts {
+    <script src="~/ViewScripts/Sacramento.js"></script>
+
+}
+
