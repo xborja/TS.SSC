@@ -4,3 +4,7 @@
 .datepicker {
     z-index: 1040 !important;
 }
+
+.vert-center-button {
+    margin-top: 1.5em;
+}

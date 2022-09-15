@@ -21,7 +21,19 @@ namespace TS.SSC.Portal.Controllers
         {
             UserService.CargaDatosUsuario(ref usuario, ref parroquia);
 
-            RegistroSacramentoLVM items = ModelService.ToView(RegistroSacramentoBL.ToList(parroquia.id));
+            //RegistroSacramentoLVM items = ModelService.ToView(RegistroSacramentoBL.ToList(parroquia.id));
+            RegistroSacramentoLVM items = new RegistroSacramentoLVM();
+            var rangoSacramentos = RegistroSacramentoBL.GetYearRange(parroquia.id);
+            items.AnioDesde = rangoSacramentos[0];
+            items.AnioHasta= rangoSacramentos[1];
+            return View(items);
+        }
+
+        [HttpPost]
+        public ActionResult Index(RegistroSacramentoLVM item)
+        {
+            UserService.CargaDatosUsuario(ref usuario, ref parroquia);
+            RegistroSacramentoLVM items = ModelService.ToView(RegistroSacramentoBL.ToList(parroquia.id, item.AnioDesde, item.AnioHasta, item.sacramento));
             return View(items);
         }
         // GET: Persona/Details/5
@@ -123,6 +135,7 @@ namespace TS.SSC.Portal.Controllers
                 item.PersonaM.idParroquia = parroquia.id;
                 item.PersonaM.UsuarioModif = usuario.userName;
                 int resup = PersonaBL.Update(item.PersonaM);
+                item.idPersona = item.PersonaM.id;
             }
 
             int resultado;

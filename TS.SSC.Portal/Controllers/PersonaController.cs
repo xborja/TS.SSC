@@ -20,9 +20,22 @@ namespace TS.SSC.Portal.Controllers
         {
             UserService.CargaDatosUsuario(ref usuario, ref parroquia);
 
-            PersonaLVM items = ModelService.ToView(PersonaBL.ToList(parroquia.id));
+            PersonaLVM items = new PersonaLVM();
+            items.LetraDesde = "A";
+            items.LetraHasta = "A";
+            //ModelService.ToView(PersonaBL.ToList(parroquia.id));
             return View(items);
         }
+
+        [HttpPost]
+        public ActionResult Index(PersonaLVM item)
+        {
+            UserService.CargaDatosUsuario(ref usuario, ref parroquia);
+            PersonaLVM items = ModelService.ToView(PersonaBL.ToList(parroquia.id, item.LetraDesde, item.LetraHasta, item.FNombre));
+            return View(items);
+
+        }
+
         // GET: Persona/Details/5
         public ActionResult Details(int id)
         {

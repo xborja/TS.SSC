@@ -61,6 +61,53 @@ namespace TS.SSC.BL
 
             return items;
         }
+        public static List<Persona> ToList(int idparroquia, string LetraDesde, string LetraHasta, string Nombre)
+        {
+            TipoBaseEnum TipoBase = TipoBaseEnum.SQLSERVER;
+            string NombreBase = string.Empty;
+            DataBase.getDBSettings(ref TipoBase, ref NombreBase);
+            List<Persona> items = new List<Persona>();
+            Persona item;
+
+            string sSQL = $"Select * from Tbl_Persona where idparroquia = {idparroquia} ";
+            if (!String.IsNullOrEmpty(LetraDesde)) 
+                sSQL += $"and substring(nombre,1,1) between '{LetraDesde}' and '{LetraHasta}'";
+            if (!String.IsNullOrEmpty(Nombre)) sSQL += $"and nombre like '%{Nombre}%' ";
+            DataSet ds = new DataSet();
+            DataBase db = new DataBase();
+            db.openConnection();
+
+            try
+            {
+                db.openConnection();
+                ds = db.FillData(sSQL, "tblData");
+                db.closeConnection();
+                if (ds.Tables.Count > 0)
+                    if (ds.Tables[0].Rows.Count > 0)
+
+                    {
+                        foreach (DataRow row in ds.Tables["tblData"].Rows)
+                        {
+
+                            item = new Persona();
+                            cargaObjeto(row, ref item);
+                            items.Add(item);
+                        }
+                    }
+
+            }
+            catch (System.Exception Ex)
+            {
+                db.errorTransaction();
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+
+            return items;
+        }
+
         public static Persona GetByID(int idParroquia, int id)
         {
             TipoBaseEnum TipoBase = TipoBaseEnum.SQLSERVER;

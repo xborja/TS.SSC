@@ -33,6 +33,37 @@
         <div hidden="hidden" class="form-horizontal"><label id="MensajeProceso" style="color : red">@ViewBag.Mensaje</label></div>
     }
 
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Datos</h3>
+        </div>
+        <div class="box-body" style="overflow-x:auto;">
+            <div class="row">
+                <div class="col-sm-2 col-12">
+                    <div class="form-group">
+                        <label for="sacramento">Sacramento</label>
+                        @Html.DropDownListFor(model => model.sacramento, new SelectList(Model.sacramentos,"id","nombreSacramento"), htmlAttributes: new { @class = "select2 form-control col-xs-2" })
+                    </div>
+                </div>
+                <div class="col-sm-2 col-12">
+                    <div class="form-group">
+                        <label for="Anio">Año Desde</label>
+                        @Html.TextBoxFor(model => model.AnioDesde, htmlAttributes: new { @type = "number", @class = "select2 form-control col-xs-2" })
+                    </div>
+                </div>
+                <div class="col-sm-2 col-12">
+                    <div class="form-group">
+                        <label for="letraHasta">Año Hasta</label>
+                        @Html.TextBoxFor(model => model.AnioHasta, htmlAttributes: new { @type = "number", @class = "select2 form-control col-xs-2" })
+                    </div>
+                </div>
+                <div class="col-sm-3 col-12">
+                    <input type="submit" id="btnSubmit" name="btnCargarDatos" class="btn btn-default vert-center-button" value="Cargar Datos" />
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -53,69 +84,68 @@
         </div>
         <br />
         <div class="box-body table-responsive">
-            @using (Html.BeginForm())
+
+
+
+            @if (Model.Items.Count > 0)
             {
+                <table class="display" style="width:100%" id="tblsacramentos">
+                    <thead>
+                        <tr>
+                            <th class="hidden">@Html.DisplayNameFor(model => model.Items.FirstOrDefault().id)</th>
+                            <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Sacramento)</th>
+                            <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Persona)</th>
+                            <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().fechaRegistro)</th>
+                            <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().libro)</th>
+                            <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().folio)</th>
+                            <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().partida)</th>
 
-
-                if (Model.Items.Count > 0)
-                {
-                    <table class="display" style="width:100%" id="tblsacramentos">
-                        <thead>
+                            <th></th>
+                            @*<th></th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
                             <tr>
-                                <th class="hidden">@Html.DisplayNameFor(model => model.Items.FirstOrDefault().id)</th>
-                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Sacramento)</th>
-                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().Persona)</th>
-                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().fechaRegistro)</th>
-                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().libro)</th>
-                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().folio)</th>
-                                <th>@Html.DisplayNameFor(model => model.Items.FirstOrDefault().partida)</th>
+                                <td class="hidden">@Html.DisplayFor(modelItem => item.id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Sacramento)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Persona)</td>
+                                <td>@item.fechaRegistro.ToString("dd/MM/yyyy")</td>
+                                <td>@Html.DisplayFor(modelItem => item.libro)</td>
+                                <td>@Html.DisplayFor(modelItem => item.folio)</td>
+                                <td>@Html.DisplayFor(modelItem => item.partida)</td>
+                                <td>
+                                    @*<span style="overflow: visible; position: relative; width: 110px;">*@
+                                    <div class="row">
+                                        <a href="/RegistroSacramento/Edit/@item.id" title="Editar registro" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa fa-edit"></i> </a>
+                                    </div>
 
-                                <th></th>
-                                @*<th></th>*@
+
+                                    @*@Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs fa fa-pencil", title = "Editar Empleado" })*@
+
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Items)
-                            {
-                                <tr>
-                                    <td class="hidden">@Html.DisplayFor(modelItem => item.id)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Sacramento)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Persona)</td>
-                                    <td>@item.fechaRegistro.ToString("dd/MM/yyyy")</td>
-                                    <td>@Html.DisplayFor(modelItem => item.libro)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.folio)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.partida)</td>
-                                    <td>
-                                        @*<span style="overflow: visible; position: relative; width: 110px;">*@
-                                        <div class="row">
-                                            <a href="/RegistroSacramento/Edit/@item.id" title="Editar registro" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa fa-edit"></i> </a>
-                                        </div>
+                            @*<td><a class="btn btn-app"> <i class="fa fa-edit"></i> Edit</a></td>*@
+                            @*<td>@Html.ActionLink("Activar/Desactivar", "ChangeEstado", new { id = item.Id })</td>*@
+                            @*<a onclick="return confirm('Esta seguro de eliminar empleado?')" href="/Empleado/Delete/@item.Id" title="Eliminar Empleado" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa  fa-trash-o"></i> </a>*@
+                        }
+                    </tbody>
+                </table>
+            }
 
 
-                                        @*@Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs fa fa-pencil", title = "Editar Empleado" })*@
+            <div class=" box-footer">
+                <div class="form-group">
+                    <div class="col-md-12" style="text-align: center;">
+                        <div class="btn-group">
+                            @*@Html.ActionLink("Nuevo", "Create", new { area = "" }, new { @class = "btn btn-default" })*@
 
-                                    </td>
-                                </tr>
-                                @*<td><a class="btn btn-app"> <i class="fa fa-edit"></i> Edit</a></td>*@
-                                @*<td>@Html.ActionLink("Activar/Desactivar", "ChangeEstado", new { id = item.Id })</td>*@
-                                @*<a onclick="return confirm('Esta seguro de eliminar empleado?')" href="/Empleado/Delete/@item.Id" title="Eliminar Empleado" class="btn btn-sm btn-clean btn-icon btn-icon-md"> <i class="fa  fa-trash-o"></i> </a>*@
-                            }
-                        </tbody>
-                    </table>
-                }
-
-
-                <div class=" box-footer">
-                    <div class="form-group">
-                        <div class="col-md-12" style="text-align: center;">
-                            <div class="btn-group">
-                                @*@Html.ActionLink("Nuevo", "Create", new { area = "" }, new { @class = "btn btn-default" })*@
-
-                            </div>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
+
 
 
         </div>

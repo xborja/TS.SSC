@@ -27,7 +27,6 @@ namespace TS.SSC.BL
 
             DataSet ds = new DataSet();
             DataBase db = new DataBase();
-            db.openConnection();
 
             try
             {
@@ -58,7 +57,61 @@ namespace TS.SSC.BL
             }
 
             return items;
-        } 
+        }
+        public static List<RegistroSacramento> ToList(int idParroquia, int anioDesde, int anioHasta, int sacramento)
+        {
+            TipoBaseEnum TipoBase = TipoBaseEnum.SQLSERVER;
+            string NombreBase = string.Empty;
+            DataBase.getDBSettings(ref TipoBase, ref NombreBase);
+            List<RegistroSacramento> items = new List<RegistroSacramento>();
+            RegistroSacramento item;
+            string strwhere = $@"where a.idParroquia = {idParroquia} ";
+            if (anioDesde > 0) strwhere += $@"and year(fechaRegistro) >= {anioDesde.ToString()} ";
+            if (anioHasta > 0) strwhere += $@"and year(fechaRegistro) <= {anioHasta.ToString()} ";
+            if (sacramento > 0) strwhere += $@"and idSacramento = {sacramento.ToString()} ";
+
+            string sSQL = $@"select a.*,
+                b.nombre as Parroquia,
+                c. nombreSacramento as Sacramento,
+                d.nombre as Persona
+                from Tbl_RegistroSacramento a
+                inner join Tbl_Parroquia b on a.idParroquia = b.id
+                inner join Tbl_Sacramentos c on a.idSacramento = c.id
+                inner join Tbl_Persona d on  a.idPersona = d.id " + strwhere;
+
+            DataSet ds = new DataSet();
+            DataBase db = new DataBase();
+
+            try
+            {
+                db.openConnection();
+                ds = db.FillData(sSQL, "tblData");
+                db.closeConnection();
+                if (ds.Tables.Count > 0)
+                    if (ds.Tables[0].Rows.Count > 0)
+
+                    {
+                        foreach (DataRow row in ds.Tables["tblData"].Rows)
+                        {
+
+                            item = new RegistroSacramento();
+                            cargaObjeto(row, ref item);
+                            items.Add(item);
+                        }
+                    }
+
+            }
+            catch (System.Exception Ex)
+            {
+                db.errorTransaction();
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+
+            return items;
+        }
         public static RegistroSacramento GetByID(int idParroquia, int id)
         {
             TipoBaseEnum TipoBase = TipoBaseEnum.SQLSERVER;
@@ -66,7 +119,7 @@ namespace TS.SSC.BL
             DataBase.getDBSettings(ref TipoBase, ref horaIniBase);
             RegistroSacramento item = new RegistroSacramento();
             string sSQL = ResourcesEntity.GetDBScript("RegistroSacramentoSelect", TipoBase).Replace("@DATABASENAME", horaIniBase);
-            sSQL = DataBase.SetParamValue(sSQL, "@idParroquia", idParroquia); 
+            sSQL = DataBase.SetParamValue(sSQL, "@idParroquia", idParroquia);
             sSQL = DataBase.SetParamValue(sSQL, "@id", id);
             DataSet ds = new DataSet();
             DataBase db = new DataBase();
@@ -97,6 +150,44 @@ namespace TS.SSC.BL
             return item;
 
         }
+
+        public static List<int> GetYearRange(int idParroquia)
+        {
+            List<int> items = new List<int>();
+
+            string sSQL = "Select min(Year(fechaRegistro)) as Desde, max(Year(fechaRegistro)) as Hasta from tbl_RegistroSacramento";
+            sSQL += " where idParroquia = " + idParroquia.ToString();
+            
+            DataBase db = new DataBase();
+            try
+            {
+                DataSet ds = new DataSet();
+                db.openConnection();
+                ds = db.FillData(sSQL, "tblData");
+                db.closeConnection();
+                if (ds.Tables.Count > 0)
+                    if (ds.Tables[0].Rows.Count > 0)
+
+                    {
+                        foreach (DataRow row in ds.Tables["tblData"].Rows)
+                        {
+                            items.Add((int)row[0]);
+                            items.Add((int)row[1]);
+                        }
+                    }
+            }
+            catch (System.Exception Ex)
+            {
+                db.errorTransaction();
+            }
+            finally
+            {
+                db.closeConnection();
+            }
+
+            return items;
+
+        }
         public static int Create(RegistroSacramento item)
         {
             TipoBaseEnum TipoBase = TipoBaseEnum.SQLSERVER;
@@ -108,7 +199,7 @@ namespace TS.SSC.BL
             int identidad;
 
             string sSQL = ResourcesEntity.GetDBScript(scriptOperacion, TipoBase).Replace("@DATABASENAME", horaIniBase);
-            sSQL = DataBase.SetParamValue(TipoBase,sSQL, "@idParroquia", DataBase.ToDBNull(item.idParroquia));
+            sSQL = DataBase.SetParamValue(TipoBase, sSQL, "@idParroquia", DataBase.ToDBNull(item.idParroquia));
             sSQL = DataBase.SetParamValue(TipoBase, sSQL, "@idPersona", DataBase.ToDBNull(item.idPersona));
             sSQL = DataBase.SetParamValue(TipoBase, sSQL, "@idSacramento", DataBase.ToDBNull(item.idSacramento));
             sSQL = DataBase.SetParamValue(TipoBase, sSQL, "@fechaRegistro", DataBase.ToDBNull(item.fechaRegistro));
@@ -233,11 +324,11 @@ namespace TS.SSC.BL
             {
                 item.id = row.Table.Columns.Contains("id") ? DataBase.intToNull(row["id"]) : 0;
                 item.idParroquia = row.Table.Columns.Contains("idParroquia") ? DataBase.intToNull(row["idParroquia"]) : 0;
-                item.idSacramento= row.Table.Columns.Contains("idSacramento") ? DataBase.intToNull(row["idSacramento"]) : 0;
-                item.idPersona= row.Table.Columns.Contains("idPersona") ? DataBase.intToNull(row["idPersona"]) : 0;
+                item.idSacramento = row.Table.Columns.Contains("idSacramento") ? DataBase.intToNull(row["idSacramento"]) : 0;
+                item.idPersona = row.Table.Columns.Contains("idPersona") ? DataBase.intToNull(row["idPersona"]) : 0;
                 item.fechaRegistro = row.Table.Columns.Contains("fechaRegistro") ? DataBase.DateTimeToNull(row["fechaRegistro"]) : System.DateTime.MinValue;
                 item.libro = row.Table.Columns.Contains("libro") ? DataBase.intToNull(row["libro"]) : 0;
-                item.folio= row.Table.Columns.Contains("folio") ? DataBase.intToNull(row["folio"]) : 0;
+                item.folio = row.Table.Columns.Contains("folio") ? DataBase.intToNull(row["folio"]) : 0;
                 item.partida = row.Table.Columns.Contains("partida") ? DataBase.strToNull(row["partida"]) : "";
                 item.Persona = row.Table.Columns.Contains("Persona") ? DataBase.strToNull(row["Persona"]) : "";
                 item.Sacramento = row.Table.Columns.Contains("Sacramento") ? DataBase.strToNull(row["Sacramento"]) : "";
@@ -245,10 +336,9 @@ namespace TS.SSC.BL
                 item.nombrePadrino = row.Table.Columns.Contains("nombrePadrino") ? DataBase.strToNull(row["nombrePadrino"]) : "";
                 item.nombreMadrina = row.Table.Columns.Contains("nombreMadrina") ? DataBase.strToNull(row["nombreMadrina"]) : "";
                 item.nombreMinistro = row.Table.Columns.Contains("nombreMinistro") ? DataBase.strToNull(row["nombreMinistro"]) : "";
-                item.nombreDaFe= row.Table.Columns.Contains("nombreDaFe") ? DataBase.strToNull(row["nombreDaFe"]) : "";
+                item.nombreDaFe = row.Table.Columns.Contains("nombreDaFe") ? DataBase.strToNull(row["nombreDaFe"]) : "";
             }
         }
-
 
     }
 }
