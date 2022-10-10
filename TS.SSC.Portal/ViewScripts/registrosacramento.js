@@ -30,7 +30,7 @@ $(document).ready(function () {
         "lengthMenu": [[5, 10, 20,50,100 -1], [5, 10, 20,50,100, 'Todos']],
         //"order": [[3, "asc"]],
         "searching": true,
-        "stateSave": true
+        "stateSave": false
     });
     //Creamos una fila en el head de la tabla y lo clonamos para cada columna
     $('#tblsacramentos thead tr').clone(true).appendTo('#tblsacramentos thead');

@@ -10,7 +10,7 @@
         "lengthMenu": [[5, 10, 20,50,100 -1], [5, 10, 20,50,100, 'Todos']],
         //"order": [[3, "asc"]],
         "searching": true,
-        "stateSave": true
+        "stateSave": false
     });
 
     $('#FechaNacimiento').datepicker({
